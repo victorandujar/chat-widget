@@ -78,12 +78,20 @@ export default function ChatWindow({
 
   return (
     <div
+      className="ia-chat-widget-window"
       style={{
+        position: "fixed",
         background: bgColor,
         color: textColor,
         ...getPositionStyles(),
+        width: "380px",
+        height: "500px",
         borderRadius: "16px",
         border: isDark ? "1px solid #404040" : "1px solid #e0e0e0",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        zIndex: 2147483647,
       }}
     >
       <div

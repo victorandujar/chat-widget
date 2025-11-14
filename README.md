@@ -35,12 +35,45 @@ npm run deploy # Sube a GitHub Pages
 \`\`\`html
 
 <!-- Añade esto en tu web .NET (o cualquier web) -->
+### Integrar en tu Web
+
+#### Opción 1: Next.js (App Router) - Recomendado
+
+```tsx
+// app/layout.tsx
+import Script from "next/script";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+      <head>
+        <Script
+          src="https://victorandujar.github.io/test-floating-chat/widget.js"
+          strategy="afterInteractive"
+          data-company="Mi Empresa"
+          data-color="#0078ff"
+          data-api-url="https://tu-api.com/api/chat"
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+#### Opción 2: HTML estático o cualquier web
+
+```html
+<!-- Añade esto en tu web .NET, PHP, o cualquier HTML -->
 <script 
-    src="https://victorandujar.github.io/chat-widget/widget.js"
+    src="https://victorandujar.github.io/test-floating-chat/widget.js"
     data-company="Mi Empresa"
     data-color="#0078ff"
     data-api-url="https://tu-api.com/api/chat">
 </script>
+```
+
+**Importante:** El widget ahora usa `position: fixed` para no desplazar el contenido de tu página.
 
 \`\`\`
 
@@ -54,14 +87,26 @@ Ver ejemplos en \`examples/dotnet/\` para crear el endpoint que procesa con IA.
 
 \`\`\`html
 
+```html
+
 <script 
-    src="https://victorandujar.github.io/chat-widget/widget.js"
+    src="https://victorandujar.github.io/test-floating-chat/widget.js"
     data-company="Nombre de tu empresa"
     data-color="#FF6B35"
     data-api-url="/api/chat"
     data-position="bottom-left"
     data-theme="dark">
 </script>
+
+```
+
+**Parámetros:**
+
+- `company`: Nombre de tu empresa
+- `color`: **Color principal del widget (#hex)** - Se aplica al botón, cabecera y burbujas del usuario
+- `api-url`: URL de tu API backend
+- `position`: bottom-right (default), bottom-left, top-right, top-left
+- `theme`: light (default), dark
 
 \`\`\`
 

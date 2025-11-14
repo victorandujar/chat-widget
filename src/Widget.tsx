@@ -48,6 +48,7 @@ function injectStyles() {
       overflow: hidden !important;
       z-index: 2147483647 !important;
       border: 1px solid rgba(0,0,0,0.1) !important;
+      pointer-events: auto !important;
     }
     
     @media (max-width: 480px) {
