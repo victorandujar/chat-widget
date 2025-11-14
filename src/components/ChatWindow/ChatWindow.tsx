@@ -53,9 +53,7 @@ export default function ChatWindow({
   };
 
   const isDark = theme === "dark";
-  const bgColor = isDark ? "#2d2d2d" : "#fff";
   const textColor = isDark ? "#fff" : "#000";
-  const messageBg = isDark ? "#404040" : "#f1f1f1";
 
   function hexToRgba(hex: string, alpha = 1) {
     if (!hex) return undefined;
@@ -73,8 +71,11 @@ export default function ChatWindow({
   }
 
   const headerBg =
-    color && color.startsWith("#") ? hexToRgba(color, 0.95) : color;
-  const bodyGlassBg = isDark ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.6)";
+    color && color.startsWith("#") ? hexToRgba(color, 0.85) : color;
+  const containerGlassBg = isDark
+    ? "rgba(45,45,45,0.75)"
+    : "rgba(255,255,255,0.85)";
+  const bodyGlassBg = isDark ? "rgba(45,45,45,0.75)" : "rgba(248,248,250,0.8)";
 
   const formatMessageContent = (content: string) => {
     return content
@@ -100,17 +101,22 @@ export default function ChatWindow({
       className="ia-chat-widget-window"
       style={{
         position: "fixed",
-        background: bgColor,
+        background: containerGlassBg,
         color: textColor,
         ...getPositionStyles(),
         width: "80%",
         height: "500px",
         borderRadius: "16px",
-        border: isDark ? "1px solid #404040" : "1px solid #e0e0e0",
+        border: isDark
+          ? "1px solid rgba(255,255,255,0.1)"
+          : "1px solid rgba(255,255,255,0.25)",
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
         zIndex: 2147483647,
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
       }}
     >
       <div
@@ -122,9 +128,9 @@ export default function ChatWindow({
           justifyContent: "space-between",
           alignItems: "center",
           borderRadius: "16px 16px 0 0",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          backdropFilter: "blur(15px)",
+          WebkitBackdropFilter: "blur(15px)",
+          borderBottom: "1px solid rgba(255,255,255,0.15)",
           backgroundClip: "padding-box",
         }}
       >
@@ -161,8 +167,8 @@ export default function ChatWindow({
           flexDirection: "column",
           gap: "8px",
           background: bodyGlassBg,
-          backdropFilter: "blur(8px)",
-          WebkitBackdropFilter: "blur(8px)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
         }}
       >
         {messages.map((msg, i) => (
@@ -175,7 +181,12 @@ export default function ChatWindow({
           >
             <div
               style={{
-                background: msg.role === "user" ? color : messageBg,
+                background:
+                  msg.role === "user"
+                    ? color
+                    : isDark
+                    ? "rgba(64,64,64,0.7)"
+                    : "rgba(241,241,241,0.6)",
                 color: msg.role === "user" ? "white" : textColor,
                 borderRadius:
                   msg.role === "user"
@@ -185,6 +196,13 @@ export default function ChatWindow({
                 fontSize: "14px",
                 lineHeight: "1.4",
                 wordWrap: "break-word",
+                backdropFilter: msg.role === "user" ? "none" : "blur(8px)",
+                WebkitBackdropFilter:
+                  msg.role === "user" ? "none" : "blur(8px)",
+                border:
+                  msg.role === "user"
+                    ? "none"
+                    : "1px solid rgba(255,255,255,0.1)",
               }}
             >
               {typeof msg.content === "string"
@@ -212,11 +230,16 @@ export default function ChatWindow({
           <div style={{ alignSelf: "flex-start", maxWidth: "85%" }}>
             <div
               style={{
-                background: messageBg,
+                background: isDark
+                  ? "rgba(64,64,64,0.7)"
+                  : "rgba(241,241,241,0.6)",
                 color: textColor,
                 borderRadius: "16px 16px 16px 4px",
                 padding: "12px 16px",
                 fontSize: "14px",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+                border: "1px solid rgba(255,255,255,0.1)",
               }}
             >
               <span>⏳ Escribiendo...</span>
@@ -230,9 +253,14 @@ export default function ChatWindow({
       <div
         style={{
           padding: "16px",
-          borderTop: `1px solid ${isDark ? "#404040" : "#e0e0e0"}`,
+          borderTop: isDark
+            ? "1px solid rgba(255,255,255,0.1)"
+            : "1px solid rgba(0,0,0,0.1)",
           display: "flex",
           gap: "8px",
+          background: isDark ? "rgba(30,30,30,0.8)" : "rgba(248,248,250,0.85)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
         }}
       >
         <input
@@ -244,12 +272,17 @@ export default function ChatWindow({
           style={{
             flex: 1,
             padding: "12px 16px",
-            border: `1px solid ${isDark ? "#404040" : "#ddd"}`,
+            border: `1px solid ${
+              isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.15)"
+            }`,
             borderRadius: "24px",
             fontSize: "14px",
             outline: "none",
-            background: isDark ? "#404040" : "#fff",
+            background: isDark ? "rgba(64,64,64,0.8)" : "rgba(255,255,255,0.9)",
             color: textColor,
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            transition: "background 0.2s ease",
           }}
         />
         <button

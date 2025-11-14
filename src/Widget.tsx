@@ -38,8 +38,10 @@ function injectStyles() {
     
     .ia-chat-widget-window {
       position: fixed !important;
-      width: 380px !important;
-      height: 500px !important;
+      /* allow the React component to control explicit width/height (e.g. 80%)
+         use max dimensions as a safety cap so it never overflows viewport */
+      max-width: 95vw !important;
+      max-height: 95vh !important;
       background: white !important;
       border-radius: 16px !important;
       box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
