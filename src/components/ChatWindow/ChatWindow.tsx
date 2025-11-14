@@ -57,6 +57,25 @@ export default function ChatWindow({
   const textColor = isDark ? "#fff" : "#000";
   const messageBg = isDark ? "#404040" : "#f1f1f1";
 
+  function hexToRgba(hex: string, alpha = 1) {
+    if (!hex) return undefined;
+    let h = hex.replace("#", "").trim();
+    if (h.length === 3)
+      h = h
+        .split("")
+        .map((c) => c + c)
+        .join("");
+    if (h.length !== 6) return undefined;
+    const r = parseInt(h.substring(0, 2), 16);
+    const g = parseInt(h.substring(2, 4), 16);
+    const b = parseInt(h.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  const headerBg =
+    color && color.startsWith("#") ? hexToRgba(color, 0.95) : color;
+  const bodyGlassBg = isDark ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.6)";
+
   const formatMessageContent = (content: string) => {
     return content
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
@@ -84,7 +103,7 @@ export default function ChatWindow({
         background: bgColor,
         color: textColor,
         ...getPositionStyles(),
-        width: "380px",
+        width: "80%",
         height: "500px",
         borderRadius: "16px",
         border: isDark ? "1px solid #404040" : "1px solid #e0e0e0",
@@ -96,13 +115,17 @@ export default function ChatWindow({
     >
       <div
         style={{
-          background: color,
+          background: headerBg,
           color: "white",
           padding: "16px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           borderRadius: "16px 16px 0 0",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          backgroundClip: "padding-box",
         }}
       >
         <div>
@@ -137,6 +160,9 @@ export default function ChatWindow({
           display: "flex",
           flexDirection: "column",
           gap: "8px",
+          background: bodyGlassBg,
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
         }}
       >
         {messages.map((msg, i) => (

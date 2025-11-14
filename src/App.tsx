@@ -21,14 +21,12 @@ export default function App({
 
   return (
     <>
-      {!open && (
-        <ChatButton
-          onClick={() => setOpen(true)}
-          color={color}
-          position={position}
-          theme={theme}
-        />
-      )}
+      <ChatButton
+        onClick={() => setOpen(!open)}
+        color={color}
+        position={position}
+        theme={theme}
+      />
       {open && (
         <ChatWindow
           onClose={() => setOpen(false)}

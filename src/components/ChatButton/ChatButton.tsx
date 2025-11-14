@@ -26,22 +26,40 @@ export default function ChatButton({
 
   const isDark = theme === "dark";
 
+  function hexToRgba(hex: string, alpha = 0.8) {
+    if (!hex) return undefined;
+    let h = hex.replace("#", "").trim();
+    if (h.length === 3) {
+      h = h
+        .split("")
+        .map((c) => c + c)
+        .join("");
+    }
+    if (h.length !== 6) return undefined;
+    const r = parseInt(h.substring(0, 2), 16);
+    const g = parseInt(h.substring(2, 4), 16);
+    const b = parseInt(h.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  const alphaBg =
+    color && color.startsWith("#") ? hexToRgba(color, 0.85) : undefined;
+
   return (
     <button
       onClick={onClick}
       className="ia-chat-widget-button"
       style={
         {
-          background: `${color}cc`,
+          background: alphaBg || color,
           color: isDark ? "#000" : "#fff",
           ...getPositionStyles(),
           backdropFilter: "blur(30px)",
           WebkitBackdropFilter: "blur(30px)",
           border: "2px solid transparent",
-          backgroundImage: `
-            linear-gradient(${color}cc, ${color}cc),
-            linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(96, 93, 93, 0.8))
-          `,
+          backgroundImage: `${
+            alphaBg ? `linear-gradient(${alphaBg}, ${alphaBg}),` : ""
+          } linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(96, 93, 93, 0.8))`,
           backgroundOrigin: "border-box",
           backgroundClip: "padding-box, border-box",
           boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
@@ -49,6 +67,11 @@ export default function ChatButton({
           width: "60px",
           height: "60px",
           fontSize: "24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          transition: "all 0.3s ease",
         } as React.CSSProperties
       }
       title="Open offers chat bot"

@@ -126,7 +126,6 @@ window.IAChatWidget = {
   },
 };
 
-// Auto-inicialización si no se especifica lo contrario
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => initWidget());
 } else {

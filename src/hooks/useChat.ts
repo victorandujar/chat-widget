@@ -6,7 +6,6 @@ export function useChat(company: string, apiUrl?: string) {
   const [loading, setLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
-  // Mensaje de bienvenida
   useEffect(() => {
     const welcomeMessage: ChatMessage = {
       role: "assistant",
@@ -28,7 +27,6 @@ export function useChat(company: string, apiUrl?: string) {
     setIsTyping(true);
 
     try {
-      // Usar la URL de API proporcionada o una por defecto
       const endpoint = apiUrl || `${window.location.origin}/api/chat`;
 
       const requestBody: ChatRequest = {
@@ -52,13 +50,11 @@ export function useChat(company: string, apiUrl?: string) {
 
       const data: ChatResponse = await response.json();
 
-      // Simular efecto de escritura
       setTimeout(() => {
         setIsTyping(false);
         let assistantContent =
           data.reply || "No encontré información relevante.";
 
-        // Si hay ofertas, formatearlas
         if (data.offers && data.offers.length > 0) {
           assistantContent += "\n\n📋 **Ofertas encontradas:**\n";
           data.offers.forEach((offer, index) => {
