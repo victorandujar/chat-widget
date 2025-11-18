@@ -70,12 +70,15 @@ export default function ChatWindow({
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
+  // Use lower alpha values so backdrop-filter actually reveals the page behind
+  // Container should be fairly transparent — just enough tint for reading
   const headerBg =
-    color && color.startsWith("#") ? hexToRgba(color, 0.85) : color;
+    color && color.startsWith("#") ? hexToRgba(color, 0.6) : color;
   const containerGlassBg = isDark
-    ? "rgba(45,45,45,0.75)"
-    : "rgba(255,255,255,0.85)";
-  const bodyGlassBg = isDark ? "rgba(45,45,45,0.75)" : "rgba(248,248,250,0.8)";
+    ? "rgba(20,20,20,0.25)"
+    : "rgba(255,255,255,0.25)";
+  // Body needs to be more transparent than container so content shines through
+  const bodyGlassBg = isDark ? "rgba(20,20,20,0.12)" : "rgba(255,255,255,0.12)";
 
   const formatMessageContent = (content: string) => {
     return content
@@ -113,9 +116,9 @@ export default function ChatWindow({
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
-        zIndex: 2147483647,
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
+        zIndex: 10000,
+        backdropFilter: "blur(18px) saturate(100%)",
+        WebkitBackdropFilter: "blur(18px) saturate(100%)",
         boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
       }}
     >
@@ -128,9 +131,9 @@ export default function ChatWindow({
           justifyContent: "space-between",
           alignItems: "center",
           borderRadius: "16px 16px 0 0",
-          backdropFilter: "blur(15px)",
-          WebkitBackdropFilter: "blur(15px)",
-          borderBottom: "1px solid rgba(255,255,255,0.15)",
+          backdropFilter: "blur(12px) saturate(100%)",
+          WebkitBackdropFilter: "blur(12px) saturate(100%)",
+          borderBottom: "1px solid rgba(255,255,255,0.2)",
           backgroundClip: "padding-box",
         }}
       >
@@ -167,8 +170,9 @@ export default function ChatWindow({
           flexDirection: "column",
           gap: "8px",
           background: bodyGlassBg,
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
+          // softer blur for message container to keep text legible
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
         }}
       >
         {messages.map((msg, i) => (
@@ -183,10 +187,13 @@ export default function ChatWindow({
               style={{
                 background:
                   msg.role === "user"
-                    ? color
+                    ? // user messages use the main color but keep them mostly opaque for readability
+                      color && color.startsWith("#")
+                      ? hexToRgba(color, 0.94)
+                      : color
                     : isDark
-                    ? "rgba(64,64,64,0.7)"
-                    : "rgba(241,241,241,0.6)",
+                    ? "rgba(255,255,255,0.06)" // subtle light tint in dark theme
+                    : "rgba(255,255,255,0.9)",
                 color: msg.role === "user" ? "white" : textColor,
                 borderRadius:
                   msg.role === "user"
@@ -196,13 +203,15 @@ export default function ChatWindow({
                 fontSize: "14px",
                 lineHeight: "1.4",
                 wordWrap: "break-word",
-                backdropFilter: msg.role === "user" ? "none" : "blur(8px)",
+                backdropFilter: msg.role === "user" ? "none" : "blur(6px)",
                 WebkitBackdropFilter:
-                  msg.role === "user" ? "none" : "blur(8px)",
+                  msg.role === "user" ? "none" : "blur(6px)",
                 border:
                   msg.role === "user"
                     ? "none"
-                    : "1px solid rgba(255,255,255,0.1)",
+                    : isDark
+                    ? "1px solid rgba(255,255,255,0.06)"
+                    : "1px solid rgba(0,0,0,0.06)",
               }}
             >
               {typeof msg.content === "string"
@@ -257,6 +266,8 @@ export default function ChatWindow({
             ? "1px solid rgba(255,255,255,0.1)"
             : "1px solid rgba(0,0,0,0.1)",
           display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           gap: "8px",
           background: isDark ? "rgba(30,30,30,0.8)" : "rgba(248,248,250,0.85)",
           backdropFilter: "blur(8px)",
@@ -273,12 +284,14 @@ export default function ChatWindow({
             flex: 1,
             padding: "12px 16px",
             border: `1px solid ${
-              isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.15)"
+              isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"
             }`,
             borderRadius: "24px",
             fontSize: "14px",
             outline: "none",
-            background: isDark ? "rgba(64,64,64,0.8)" : "rgba(255,255,255,0.9)",
+            background: isDark
+              ? "rgba(30,30,30,0.45)"
+              : "rgba(255,255,255,0.7)",
             color: textColor,
             backdropFilter: "blur(8px)",
             WebkitBackdropFilter: "blur(8px)",
