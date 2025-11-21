@@ -6,6 +6,7 @@
 
 body {
   background: var(--background-color);
+  background-image: url("https://images4.alphacoders.com/266/266678.jpg");
   color: black;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   z-index: 0;

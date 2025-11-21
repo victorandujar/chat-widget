@@ -53,86 +53,90 @@ export default function ChatButton({
     color && color.startsWith("#") ? hexToRgba(color, 0.75) : undefined;
 
   return (
-    <button
-      onClick={onClick}
-      className="ia-chat-widget-button"
-      onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
-      onFocus={() => setIsFocus(true)}
-      onBlur={() => setIsFocus(false)}
-      style={
-        {
-          background:
-            (isHover || isFocus) && hoverAlphaBg
-              ? hoverAlphaBg
-              : alphaBg || (isDark ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.08)"),
-          color: isDark ? "#fff" : "#000",
-          ...getPositionStyles(),
-          backdropFilter: isHover
-            ? "blur(12px) saturate(120%)"
-            : "blur(10px) saturate(110%)",
-          WebkitBackdropFilter: isHover
-            ? "blur(12px) saturate(120%)"
-            : "blur(10px) saturate(110%)",
-          border: isDark
-            ? "1px solid rgba(255,255,255,0.12)"
-            : "1px solid rgba(0,0,0,0.12)",
-          backgroundImage: `${
-            alphaBg ? `linear-gradient(${alphaBg}, ${alphaBg}),` : ""
-          } linear-gradient(135deg, rgba(255,255,255,0.06), rgba(0,0,0,0.02))`,
-          backgroundOrigin: "border-box",
-          backgroundClip: "padding-box, border-box",
-          boxShadow: isHover
-            ? isDark
-              ? "0 6px 24px rgba(0,0,0,0.6)"
-              : "0 6px 18px rgba(0,0,0,0.18)"
-            : isDark
-            ? "0 4px 18px rgba(0,0,0,0.45)"
-            : "0 4px 12px rgba(0,0,0,0.12)",
-          borderRadius: "50%",
-          width: "60px",
-          height: "60px",
-          fontSize: "24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-          transition:
-            "transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease, backdrop-filter 0.15s ease",
-          transform: isHover ? "translateY(-2px) scale(1.03)" : undefined,
-          outline: isFocus
-            ? isDark
-              ? "2px solid rgba(255,255,255,0.16)"
-              : "2px solid rgba(0,0,0,0.12)"
-            : undefined,
-        } as React.CSSProperties
-      }
-      title="Open offers chat bot"
-      aria-label="Open chat bot"
-    >
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#ffffff"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          display: "block",
-          filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.15))",
-        }}
-        aria-hidden="true"
-        focusable="false"
+    <>
+      <style>{`
+        .ia-chat-widget-button {
+          isolation: isolate;
+        }
+      `}</style>
+      <button
+        onClick={onClick}
+        className="ia-chat-widget-button"
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
+        style={
+          {
+            position: "fixed",
+            background:
+              (isHover || isFocus) && hoverAlphaBg
+                ? hoverAlphaBg
+                : alphaBg ||
+                  (isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.3)"),
+            backdropFilter: isHover
+              ? "blur(12px) saturate(120%)"
+              : "blur(10px) saturate(110%)",
+            WebkitBackdropFilter: isHover
+              ? "blur(12px) saturate(120%)"
+              : "blur(10px) saturate(110%)",
+            color: isDark ? "#fff" : "#000",
+            ...getPositionStyles(),
+            border: isDark
+              ? "1px solid rgba(255,255,255,0.2)"
+              : "1px solid rgba(255,255,255,0.3)",
+            boxShadow: isHover
+              ? isDark
+                ? "0 6px 24px rgba(0,0,0,0.6)"
+                : "0 6px 18px rgba(0,0,0,0.18)"
+              : isDark
+              ? "0 4px 18px rgba(0,0,0,0.45)"
+              : "0 4px 12px rgba(0,0,0,0.12)",
+            borderRadius: "50%",
+            width: "60px",
+            height: "60px",
+            fontSize: "24px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            transition:
+              "transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease, backdrop-filter 0.15s ease",
+            transform: isHover ? "translateY(-2px) scale(1.03)" : undefined,
+            outline: isFocus
+              ? isDark
+                ? "2px solid rgba(255,255,255,0.16)"
+                : "2px solid rgba(0,0,0,0.12)"
+              : undefined,
+            zIndex: 2147483646,
+          } as React.CSSProperties
+        }
+        title="Open offers chat bot"
+        aria-label="Open chat bot"
       >
-        {/* Modern outlined rounded chat bubble with tail — matching reference design */}
-        <path
-          d="M5 4.5h11.5c1.38 0 2.5 1.12 2.5 2.5v6.5c0 1.38-1.12 2.5-2.5 2.5H9l-3 2.5v-2.5H5c-1.38 0-2.5-1.12-2.5-2.5V7c0-1.38 1.12-2.5 2.5-2.5z"
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
           fill="none"
-        />
-      </svg>
-    </button>
+          stroke="#ffffff"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            display: "block",
+            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.15))",
+          }}
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d="M5 4.5h11.5c1.38 0 2.5 1.12 2.5 2.5v6.5c0 1.38-1.12 2.5-2.5 2.5H9l-3 2.5v-2.5H5c-1.38 0-2.5-1.12-2.5-2.5V7c0-1.38 1.12-2.5 2.5-2.5z"
+            fill="none"
+          />
+        </svg>
+      </button>
+    </>
   );
 }
