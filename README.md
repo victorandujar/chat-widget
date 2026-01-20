@@ -53,7 +53,7 @@ export default function RootLayout({
     <html>
       <head>
         <Script
-          src="https://victorandujar.github.io/test-floating-chat/widget.js"
+          src="https://victorandujar.github.io/chat-widget/widget.js"
           strategy="afterInteractive"
           data-company="Mi Empresa"
           data-color="#0078ff"
@@ -71,7 +71,7 @@ export default function RootLayout({
 ```html
 <!-- Añade esto en tu web .NET, PHP, o cualquier HTML -->
 <script
-  src="https://victorandujar.github.io/test-floating-chat/widget.js"
+  src="https://victorandujar.github.io/chat-widget/widget.js"
   data-company="Mi Empresa"
   data-color="#0078ff"
   data-api-url="https://tu-api.com/api/chat"
@@ -94,10 +94,10 @@ Ver ejemplos en \`examples/dotnet/\` para crear el endpoint que procesa con IA.
 
 ```html
 <script
-  src="https://victorandujar.github.io/test-floating-chat/widget.js"
+  src="https://victorandujar.github.io/chat-widget/widget.js"
   data-company="Nombre de tu empresa"
   data-color="#FF6B35"
-  data-api-url="/api/chat"
+  data-api-url="https://tu-api.com/api/chat"
   data-position="bottom-left"
   data-theme="dark"
 ></script>
@@ -107,9 +107,11 @@ Ver ejemplos en \`examples/dotnet/\` para crear el endpoint que procesa con IA.
 
 - `company`: Nombre de tu empresa
 - `color`: **Color principal del widget (#hex)** - Se aplica al botón, cabecera y burbujas del usuario
-- `api-url`: URL de tu API backend
+- `api-url`: **URL absoluta de tu API backend** (ej: https://tu-api.com/api/chat) - Debe incluir https:// y ser accesible desde cualquier dominio
 - `position`: bottom-right (default), bottom-left, top-right, top-left
 - `theme`: light (default), dark
+
+**Importante:** Asegúrate de que tu API backend tenga CORS configurado para permitir requests desde cualquier origen (*), ya que el widget se carga desde GitHub Pages.
 
 \`\`\`
 
