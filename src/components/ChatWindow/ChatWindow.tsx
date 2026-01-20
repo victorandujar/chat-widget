@@ -5,7 +5,7 @@ interface Props {
   onClose: () => void;
   color: string;
   company: string;
-  companyId?: string;
+  companyId: string;
   apiUrl?: string;
   position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
   theme?: "light" | "dark";
@@ -82,7 +82,7 @@ export default function ChatWindow({
         /🔗 \[([^\]]+)\]\(([^)]+)\)/g,
         '<a href="$2" target="_blank" style="color: ' +
           color +
-          '; text-decoration: underline;">🔗 $1</a>'
+          '; text-decoration: underline;">🔗 $1</a>',
       )
       .split("\n")
       .map((line, i) =>
@@ -90,7 +90,7 @@ export default function ChatWindow({
           <div key={i} dangerouslySetInnerHTML={{ __html: line }} />
         ) : (
           <br key={i} />
-        )
+        ),
       );
   };
 
@@ -110,7 +110,7 @@ export default function ChatWindow({
           WebkitBackdropFilter: "blur(18px) saturate(120%)",
           color: textColor,
           ...getPositionStyles(),
-          width: "80%",
+          width: "50%",
           height: "500px",
           borderRadius: "16px",
           border: isDark
@@ -191,8 +191,8 @@ export default function ChatWindow({
                         ? hexToRgba(color, 0.94)
                         : color
                       : isDark
-                      ? "rgba(255,255,255,0.06)"
-                      : "rgba(255,255,255,0.9)",
+                        ? "rgba(255,255,255,0.06)"
+                        : "rgba(255,255,255,0.9)",
                   color: msg.role === "user" ? "white" : textColor,
                   borderRadius:
                     msg.role === "user"
@@ -209,8 +209,8 @@ export default function ChatWindow({
                     msg.role === "user"
                       ? "none"
                       : isDark
-                      ? "1px solid rgba(255,255,255,0.06)"
-                      : "1px solid rgba(0,0,0,0.06)",
+                        ? "1px solid rgba(255,255,255,0.06)"
+                        : "1px solid rgba(0,0,0,0.06)",
                 }}
               >
                 {typeof msg.content === "string"

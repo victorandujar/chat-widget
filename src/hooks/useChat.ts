@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { ChatMessage, ChatRequest, ChatResponse } from "../types";
 
-export function useChat(company: string, companyId?: string, apiUrl?: string) {
+export function useChat(company: string, companyId: string, apiUrl?: string) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);

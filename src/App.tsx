@@ -4,7 +4,7 @@ import ChatWindow from "./components/ChatWindow/ChatWindow";
 
 interface Props {
   company: string;
-  companyId?: string;
+  companyId: string;
   color: string;
   apiUrl?: string;
   position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";

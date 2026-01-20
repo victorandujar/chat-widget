@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import type { IAChatWidgetAPI } from "./types";
 
 // Inyectar estilos CSS directamente en el documento
 function injectStyles() {
@@ -96,8 +95,7 @@ function initWidget(config: WidgetConfig = {}) {
   // Usar la referencia capturada al inicio, no document.currentScript
   const finalConfig = {
     company: config.company || scriptElement?.dataset.company || "Tu Empresa",
-    companyId:
-      config.companyId || scriptElement?.dataset.companyId || undefined,
+    companyId: config.companyId || scriptElement?.dataset.companyId || "",
     color: config.color || scriptElement?.dataset.color || "#0078ff",
     apiUrl: config.apiUrl || scriptElement?.dataset.apiUrl || undefined,
     position:
@@ -119,11 +117,14 @@ function initWidget(config: WidgetConfig = {}) {
 
 declare global {
   interface Window {
-    IAChatWidget: IAChatWidgetAPI;
+    IAChatWidget: {
+      init: (config?: WidgetConfig) => void;
+      destroy: () => void;
+    };
   }
 }
 
-const chatWidgetAPI: IAChatWidgetAPI = {
+window.IAChatWidget = {
   init: initWidget,
   destroy: () => {
     const container = document.getElementById("ia-chat-widget-container");
@@ -132,8 +133,6 @@ const chatWidgetAPI: IAChatWidgetAPI = {
     if (styles) styles.remove();
   },
 };
-
-window.IAChatWidget = chatWidgetAPI;
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => initWidget());

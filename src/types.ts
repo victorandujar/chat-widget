@@ -1,8 +1,6 @@
 export interface ChatRequest {
   company: string;
-
-  companyId?: string;
-
+  companyId: string;
   message: string;
 
   timestamp: string;
