@@ -111,7 +111,7 @@ Ver ejemplos en \`examples/dotnet/\` para crear el endpoint que procesa con IA.
 - `position`: bottom-right (default), bottom-left, top-right, top-left
 - `theme`: light (default), dark
 
-**Importante:** Asegúrate de que tu API backend tenga CORS configurado para permitir requests desde cualquier origen (*), ya que el widget se carga desde GitHub Pages.
+**Importante:** Asegúrate de que tu API backend tenga CORS configurado para permitir requests desde cualquier origen (\*), ya que el widget se carga desde GitHub Pages.
 
 \`\`\`
 

@@ -72,6 +72,10 @@ interface WidgetConfig {
   theme?: "light" | "dark";
 }
 
+// Capturar la referencia al script INMEDIATAMENTE al cargar
+// document.currentScript solo está disponible durante la ejecución inicial del script
+const scriptElement = document.currentScript as HTMLScriptElement | null;
+
 function initWidget(config: WidgetConfig = {}) {
   const containerId = "ia-chat-widget-container";
 
@@ -87,25 +91,25 @@ function initWidget(config: WidgetConfig = {}) {
   container.className = "ia-chat-widget";
   document.body.appendChild(container);
 
-  const script = document.currentScript as HTMLScriptElement | null;
+  // Usar la referencia capturada al inicio, no document.currentScript
   const finalConfig = {
-    company: config.company || script?.dataset.company || "Tu Empresa",
-    color: config.color || script?.dataset.color || "#0078ff",
-    apiUrl: config.apiUrl || script?.dataset.apiUrl || undefined,
+    company: config.company || scriptElement?.dataset.company || "Tu Empresa",
+    color: config.color || scriptElement?.dataset.color || "#0078ff",
+    apiUrl: config.apiUrl || scriptElement?.dataset.apiUrl || undefined,
     position:
       config.position ||
-      (script?.dataset.position as WidgetConfig["position"]) ||
+      (scriptElement?.dataset.position as WidgetConfig["position"]) ||
       "bottom-right",
     theme:
       config.theme ||
-      (script?.dataset.theme as WidgetConfig["theme"]) ||
+      (scriptElement?.dataset.theme as WidgetConfig["theme"]) ||
       "light",
   };
 
   ReactDOM.createRoot(container).render(
     <React.StrictMode>
       <App {...finalConfig} />
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }
 
