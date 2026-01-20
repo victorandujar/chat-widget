@@ -5,6 +5,7 @@ interface Props {
   onClose: () => void;
   color: string;
   company: string;
+  companyId?: string;
   apiUrl?: string;
   position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
   theme?: "light" | "dark";
@@ -14,11 +15,12 @@ export default function ChatWindow({
   onClose,
   color,
   company,
+  companyId,
   apiUrl,
   position = "bottom-right",
   theme = "light",
 }: Props) {
-  const { messages, sendMessage, loading, isTyping } = useChat(company, apiUrl);
+  const { messages, sendMessage, loading, isTyping } = useChat(company, companyId, apiUrl);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 

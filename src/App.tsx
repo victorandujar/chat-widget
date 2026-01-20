@@ -4,6 +4,7 @@ import ChatWindow from "./components/ChatWindow/ChatWindow";
 
 interface Props {
   company: string;
+  companyId?: string;
   color: string;
   apiUrl?: string;
   position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
@@ -12,6 +13,7 @@ interface Props {
 
 export default function App({
   company,
+  companyId,
   color,
   apiUrl,
   position = "bottom-right",
@@ -32,6 +34,7 @@ export default function App({
           onClose={() => setOpen(false)}
           color={color}
           company={company}
+          companyId={companyId}
           apiUrl={apiUrl}
           position={position}
           theme={theme}
