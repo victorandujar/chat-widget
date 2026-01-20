@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import type { WidgetConfig } from "./types";
 
 // Inyectar estilos CSS directamente en el documento
 function injectStyles() {
@@ -64,15 +65,6 @@ function injectStyles() {
   document.head.appendChild(style);
 }
 
-interface WidgetConfig {
-  company?: string;
-  companyId?: string;
-  color?: string;
-  apiUrl?: string;
-  position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
-  theme?: "light" | "dark";
-}
-
 // Capturar la referencia al script INMEDIATAMENTE al cargar
 // document.currentScript solo está disponible durante la ejecución inicial del script
 const scriptElement = document.currentScript as HTMLScriptElement | null;
@@ -113,15 +105,6 @@ function initWidget(config: WidgetConfig = {}) {
       <App {...finalConfig} />
     </React.StrictMode>,
   );
-}
-
-declare global {
-  interface Window {
-    IAChatWidget: {
-      init: (config?: WidgetConfig) => void;
-      destroy: () => void;
-    };
-  }
 }
 
 window.IAChatWidget = {

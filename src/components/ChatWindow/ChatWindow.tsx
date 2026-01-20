@@ -20,7 +20,11 @@ export default function ChatWindow({
   position = "bottom-right",
   theme = "light",
 }: Props) {
-  const { messages, sendMessage, loading, isTyping } = useChat(company, companyId, apiUrl);
+  const { messages, sendMessage, loading, isTyping } = useChat(
+    company,
+    companyId,
+    apiUrl,
+  );
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -141,7 +145,7 @@ export default function ChatWindow({
           }}
         >
           <div>
-            <strong style={{ fontSize: "16px" }}>Asistente de Ofertas</strong>
+            <strong style={{ fontSize: "16px" }}>AIVIS</strong>
             <div style={{ fontSize: "12px", opacity: 0.9 }}>{company}</div>
           </div>
           <button

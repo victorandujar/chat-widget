@@ -35,6 +35,8 @@ export interface Offer {
 export interface WidgetConfig {
   company?: string;
 
+  companyId?: string;
+
   color?: string;
 
   apiUrl?: string;

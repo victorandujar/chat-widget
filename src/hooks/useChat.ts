@@ -9,7 +9,7 @@ export function useChat(company: string, companyId: string, apiUrl?: string) {
   useEffect(() => {
     const welcomeMessage: ChatMessage = {
       role: "assistant",
-      content: `¡Hola! Soy tu asistente de búsqueda de ofertas para ${company}. ¿En qué puedo ayudarte hoy? Puedes preguntarme por productos, servicios o ofertas específicas.`,
+      content: `¡Hola! Soy tu asistente para ${company}. ¿En qué puedo ayudarte hoy?`,
       timestamp: new Date(),
     };
     setMessages([welcomeMessage]);
